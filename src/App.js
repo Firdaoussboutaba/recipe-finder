@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import CuisinePage from './pages/CuisinePage';
+import RecipeDetail from './pages/RecipeDetail';
+import AboutUs from './pages/AboutUs'; 
+import Header from './components/Header'; 
+import Footer from './components/Footer'; 
+import SearchBar from './components/SearchBar';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col min-h-screen">  
+      <Router>
+        {/* The header should always be visible */}
+        <Header />
+
+        {/* SearchBar visible on all pages under the header */}
+        <SearchBar />
+
+        
+        <div className="flex-grow"> 
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/cuisine/:type" element={<CuisinePage />} />
+            <Route path="/recipe/:name" element={<RecipeDetail />} />
+            <Route path="/about-us" element={<AboutUs />} /> 
+          </Routes>
+        </div>
+
+        {/* The footer should always be visible */}
+        <Footer />
+      </Router>
     </div>
   );
 }
